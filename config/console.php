@@ -20,9 +20,55 @@ $config = [
                     'class' => 'yii\log\FileTarget',
                     'levels' => ['error', 'warning'],
                 ],
+                [
+                    'class' => 'yii\log\FileTarget',
+                    'categories'=>[
+                        'app\commands\SyncController*',
+                    ],
+                    'logVars' => [],
+                    'logFile' => '@runtime/logs/console.log',
+                    'levels' => ['error', 'warning', 'info'],
+                ],
+                [
+                    'class' => 'yii\log\EmailTarget',
+                    'levels' => ['info'],
+                    'categories' => ['app\commands\SyncController*'],
+                    'logVars' => [],
+                    'message' => [
+                       'from' => ['noreply@baby-one.com.ua'],
+                       'to' => ['info@baby-one.com.ua', 'viola.shinkaryova@gmail.com'],
+                       'subject' => 'Обновлён товар на сайте',
+                    ],
+                ],
+                [
+                    'class' => 'yii\log\EmailTarget',
+                    'levels' => ['warning', 'error'],
+                    'categories' => ['app\commands\SyncController*'],
+                    'logVars' => [],
+                    'message' => [
+                       'from' => ['noreply@baby-one.com.ua'],
+                       'to' => ['info@baby-one.com.ua', 'budko.v1989@gmail.com'],
+                       'subject' => 'Ошибки при обмене на сайте',
+                    ],
+                ],
             ],
         ],
         'db' => $db,
+        'web1c' => [
+            'class' => 'mongosoft\soapclient\Client',
+            'url' => 'http://server.local/ut11/ws/ProductsInfo?wsdl',
+            'options' => [
+                'login' => 'admin',
+                'password' => 'admin',
+                'features' => SOAP_USE_XSI_ARRAY_TYPE,
+                'exceptions' => 1,
+                'cache_wsdl' => WSDL_CACHE_NONE,
+            ],
+        ],
+        'consoleRunner' => [
+            'class' => 'vova07\console\ConsoleRunner',
+            'file' => '@app/yii' // or an absolute path to console file
+        ],
     ],
     'params' => $params,
     /*
