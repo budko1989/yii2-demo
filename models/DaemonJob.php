@@ -33,7 +33,7 @@ class DaemonJob extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return '{{%yii2_daemon_job}}';
+        return 'daemon_job';
     }
 
     /**
@@ -87,7 +87,6 @@ class DaemonJob extends \yii\db\ActiveRecord
         $this->started = new Expression('NOW()');
         $this->daemonId = $pid;
         return $this->save();
-        // $this->updateStatus(self::STATUS_RUNNING);
     }
 
     public function finish($result = '')
@@ -101,7 +100,6 @@ class DaemonJob extends \yii\db\ActiveRecord
     public function failed($errors = 'undefined error')
     {
         $this->status = self::STATUS_FAILED;
-        // $this->result = "false";
         $this->finished = new Expression('NOW()');
         $this->errors = $errors;
         $this->save();

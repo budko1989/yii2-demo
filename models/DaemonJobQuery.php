@@ -9,12 +9,6 @@ namespace app\models;
  */
 class DaemonJobQuery extends \yii\db\ActiveQuery
 {
-    public function new()
-    {
-        $this->andWhere(['status' => 'new']);
-        return $this;
-    }
-
     /**
      * @inheritdoc
      * @return DaemonJob[]|array
